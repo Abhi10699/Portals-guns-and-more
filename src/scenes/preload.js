@@ -7,9 +7,19 @@ export default class PreloadScene extends Scene{
 
   preload(){
     // player
-    this.load.spritesheet('player','./assets/player.png',{frameWidth:96,frameHeight:96})
+    this.load.spritesheet('player','./assets/player.png',{frameWidth:96,frameHeight:96});
+    this.load.spritesheet('player-main','./assets/player_set.png',{frameHeight:17.33,frameWidth:16.66});
+
+
+    // background
+    this.load.image('background','./assets/background.png');
+
     // portals
     this.load.spritesheet('portal','./assets/portals.png',{frameHeight:64,frameWidth:64});
+
+    // maps
+    this.load.image('tiles','./assets/environment_set.png');
+    this.load.tilemapTiledJSON('World','./assets/Map/Map.json');
   }
   create(){
     // variables
@@ -44,6 +54,37 @@ export default class PreloadScene extends Scene{
       frameRate
     })
 
+
+    // main player anims
+
+    this.anims.create({
+      key:'pmain-idle',
+      frames:this.anims.generateFrameNumbers('player-main',{start:0,end:0}),
+      repeat:0,
+      frameRate:10
+    })
+
+
+    this.anims.create({
+      key:'pmain-run',
+      frames:this.anims.generateFrameNumbers('player-main',{start:0,end:1}),
+      repeat:-1,
+      frameRate:7
+    })
+
+    this.anims.create({
+      key:'pmain-jump',
+      frames:this.anims.generateFrameNumbers('player-main',{start:6,end:9}),
+      repeat:0,
+      frameRate:12
+    })
+
+    this.anims.create({
+      key:'pmain-die',
+      frameRate:12,
+      frames:this.anims.generateFrameNumbers('player-main',{start:12,end:17}),
+      repeat:0
+    })
 
 
     // portal animations
