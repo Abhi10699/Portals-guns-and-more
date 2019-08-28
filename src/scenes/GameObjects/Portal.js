@@ -10,14 +10,13 @@ export default class Portal extends Sprite{
     
     // portal config
     this.body.setSize(this.width - 50,this.height - 20);
-    this.setScale(4);
+    this.setScale(2.2);
     this.scene.add.existing(this);
 
 
 
     this.anims.play('portal-open');
     this.anims.chain('portal-active');
-    
     
     // main stuff
 

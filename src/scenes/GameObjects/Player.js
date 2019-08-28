@@ -6,63 +6,65 @@ const {Sprite} = Physics.Arcade;
 export default class Player extends Sprite{
   
   constructor(scene,x,y){
-    super(scene,x,y,'player',0);
+    super(scene,x,y,'player-main',0);
 
     this.scene.physics.world.enableBody(this);
     this.setCollideWorldBounds(true);
   
     // controll keys
-    this.keys = this.scene.input.keyboard.addKeys({
-      
-      // movement keys
+    this.InputConfig();
 
-      'W':Phaser.Input.Keyboard.KeyCodes.W,
-      'A':Phaser.Input.Keyboard.KeyCodes.A,
-      'S':Phaser.Input.Keyboard.KeyCodes.S,
-      'D':Phaser.Input.Keyboard.KeyCodes.D,
-    });
-
+    this.body.gravity.y = 500;
 
     this.portalGroup = this.scene.physics.add.group();
     this.scene.add.existing(this);
-
+    this.setScale(2.3);
+    this.setFlipX(true);
     this.PortalDistance = 130;
     this.scene.physics.add.overlap(this,this.portalGroup);
   }
 
+  InputConfig() {
+    this.keys = this.scene.input.keyboard.addKeys({
+      // movement keys
+      'W': Phaser.Input.Keyboard.KeyCodes.W,
+      'A': Phaser.Input.Keyboard.KeyCodes.A,
+      'S': Phaser.Input.Keyboard.KeyCodes.S,
+      'D': Phaser.Input.Keyboard.KeyCodes.D,
+      'Space': Phaser.Input.Keyboard.KeyCodes.SPACE
+    });
+  }
+
   handleMovements(){
-    const speed = 400;
-    
-    // up
-
-    if(this.keys.W.isDown){
-      this.setVelocity(0,-speed);
-      this.anims.play('move-up',true);
-    }
-
+    const speed = 250;
+    const jumpHeight = 300;
     // left
-    else if(this.keys.A.isDown){
-      this.setVelocity(-speed,0);
-      this.setFlipX(false);
-      this.anims.play('move-sideways',true);
-    }
+    
+    // if(!this.body.blocked.down == false){  
+    
+      if(this.keys.A.isDown){
+        this.setVelocityX(-speed);
+        this.setFlipX(true);
+        this.anims.play('pmain-run',true);
+      }
 
-    // down
-    else if(this.keys.S.isDown){
-      this.anims.play('move-down',true);
-      this.setVelocity(0,speed);
-
-    }
-
-    // right
-    else if(this.keys.D.isDown){
-      this.setVelocity(speed,0);
-      this.setFlipX(true);      
-      this.anims.play('move-sideways',true);    
-    }
-    else{
-      this.setVelocity(0);
-      this.anims.stop(); // stops the animation and keeps the player facing in the last direction   
+      // right
+      
+      else if(this.keys.D.isDown){
+        this.setVelocityX(speed);
+        this.setFlipX(false);      
+        this.anims.play('pmain-run',true);    
+      }
+      else{
+        this.setVelocityX(0);
+        this.anims.stop();
+      }
+    // }
+    
+    // jump
+    if (this.keys.Space.isDown && this.body.blocked.down) // check if player is on floor.
+    {
+      this.setVelocityY(-jumpHeight);
     }
   }
 
@@ -77,7 +79,7 @@ export default class Player extends Sprite{
   }
 
   spawnPortal() {
-    const portalDirection = this.flipX ? 1 : -1;
+    const portalDirection = this.flipX ? -1 : 1;
     let mouseX = this.scene.input.activePointer.x;
     let mouseY = this.scene.input.activePointer.y;
     let source_portal = new Portal(this.scene, (this.x) + (this.PortalDistance * portalDirection), this.y);
@@ -89,6 +91,7 @@ export default class Player extends Sprite{
   }
 
   update(){
+
     this.handleMovements();
     this.handleActions();
     this.handlePortals();

@@ -6,12 +6,14 @@ const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 
 const config = {
-  width:WIDTH/2,
-  height:HEIGHT/2,
+  width:WIDTH,
+  height:HEIGHT,
+  pixelArt:true,
   physics:{
     default:'arcade',
+    fps:60,
     arcade:{
-      debug:false
+      debug:true,
     }
   },
   scene:[PreloadScene,GameScene]
