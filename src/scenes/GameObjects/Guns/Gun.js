@@ -26,7 +26,7 @@ export default class Gun extends Sprite{
   }
 
   handleActions(){    
-    if(this.scene.input.activePointer.isDown){
+    if(this.scene.input.mousePointer.isDown){
       this.shoot();
     }
   }
