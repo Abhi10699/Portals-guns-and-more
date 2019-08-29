@@ -19,7 +19,7 @@ export default class GameScene extends Scene{
 
     this.physics.add.collider(this.player,platforms);
     platforms.setCollisionByProperty({collides:true})
-
+    
 
   }
   update(){
