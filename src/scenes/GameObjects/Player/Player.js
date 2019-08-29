@@ -26,6 +26,11 @@ export default class Player extends Sprite{
       'D': Phaser.Input.Keyboard.KeyCodes.D,
       'Space': Phaser.Input.Keyboard.KeyCodes.SPACE
     });
+
+    this.weaponKeys = this.scene.input.keyboard.addKeys({
+      'Q':Phaser.Input.Keyboard.KeyCodes.Q,
+      'E':Phaser.Input.Keyboard.KeyCodes.E,
+    })
   }
   // physics actions
   handleMovements(){
@@ -55,8 +60,7 @@ export default class Player extends Sprite{
     }
     
     // jump
-    if (this.keys.Space.isDown && this.body.blocked.down) // check if player is on floor.
-    {
+    if(this.keys.Space.isDown && this.body.blocked.down){ // check if player is on floor.
       this.setVelocityY(-jumpHeight);
     }
   }
