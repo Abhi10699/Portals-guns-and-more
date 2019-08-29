@@ -1,6 +1,5 @@
 import {Scene} from 'phaser';
-import Player from './GameObjects/Player';
-import Platfoem from './GameObjects/Platforms';
+import Soldier from './GameObjects/Player/player.soldier';
 
 export default class GameScene extends Scene{
   constructor(){
@@ -8,7 +7,7 @@ export default class GameScene extends Scene{
   }
 
   create(){
-    this.player = new Player(this,100,100);
+    this.player = new Soldier(this,100,100);
     this.cameras.main.setBackgroundColor('#5d5d5d')
     
 
@@ -20,6 +19,7 @@ export default class GameScene extends Scene{
 
     this.physics.add.collider(this.player,platforms);
     platforms.setCollisionByProperty({collides:true})
+
 
   }
   update(){
