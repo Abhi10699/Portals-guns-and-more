@@ -8,7 +8,7 @@ export default class GameScene extends Scene{
 
   create(){
     this.player = new Soldier(this,100,100);
-    this.cameras.main.setBackgroundColor('#5d5d5d')
+    // this.cameras.main.setBackgroundColor('#5d5d5d')
     
 
     this.map = this.add.tilemap('World',16,16);
