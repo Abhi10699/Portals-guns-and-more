@@ -6,11 +6,12 @@ export default class PortalGun extends Gun{
   constructor(playerScene,x,y,player){
     super(playerScene,x,y,'guns',6);
     this.player = player;
-    this.cooldown = 10; // cooldown duration
+    this.cooldown = 2000; // cooldown duration in milliseconds
 
     this.portalGroup = this.scene.physics.add.group();
     this.PortalDistance = 100;
 
+    this.canShoot = true;
   }
 
 
@@ -36,7 +37,6 @@ export default class PortalGun extends Gun{
   spawnPortal() {
    
     let {player} = this;
-
     const portalDirection = this.flipX ? -1 : 1;
     let mouseX = this.scene.input.activePointer.x;
     let mouseY = this.scene.input.activePointer.y;
@@ -48,8 +48,19 @@ export default class PortalGun extends Gun{
     this.portalGroup.add(destination_portal);
   }
 
+  startCooldown(){
+    this.scene.time.addEvent({
+      delay:this.cooldown,
+      callback:()=>this.canShoot = true
+    })
+  }
+
   shoot(){
-    this.spawnPortal();
+    if(this.canShoot == true){
+      this.spawnPortal();
+      this.canShoot = false;
+      this.startCooldown();
+    }
   }
 
   update(){
