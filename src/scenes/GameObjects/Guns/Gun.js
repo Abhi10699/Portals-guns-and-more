@@ -9,7 +9,7 @@ export default class Gun extends Sprite{
 
     // configs
     this.setScale(1.2);
-    this.positionOffset ={x:7,y:9};
+    this.positionOffset = {x:7,y:9};
   
   }
 
