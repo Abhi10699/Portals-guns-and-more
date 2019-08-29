@@ -7,7 +7,7 @@ export default class LaserGun extends Gun{
     this.player = player;
     this.bulletGroup = this.scene.physics.add.group();
     
-    this.fireRate = 100; // bullets per second
+    this.fireRate = 200; // bullets per second
     this.magazineSize = 30;
 
     this.canShoot = true;
