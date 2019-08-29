@@ -1,8 +1,9 @@
-import Player from "./Player.Base";
-import PortalGun from "../Guns/Gun.PortalGun";
+import Player from "./Player";
+import PortalGun from "../Guns/Portal/Gun.PortalGun";
+import LaserGun from "../Guns/Laser/Gun.laser";
 
 export default class Soldier extends Player{
-  constructor(scene,x,y,){
+  constructor(scene,x,y){
     super(scene,x,y,'player-main',0);
     
     // data
@@ -11,7 +12,7 @@ export default class Soldier extends Player{
     this.activeGun = null;
 
     // portal gun
-    let portalGun = new PortalGun(this.scene,this.x,this.y,this);
+    let portalGun = new LaserGun(this.scene,this.x,this.y,this);
     this.guns.add(portalGun);
   
   
