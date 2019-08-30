@@ -1,8 +1,17 @@
 import Gun from "../Gun";
 import LaserBullet from "./Laser";
+import { Scene } from "phaser";
+import Player from "../../Player/Player";
 
 export default class LaserGun extends Gun{
-  constructor(scene,x,y,player){
+  
+  player: any;
+  bulletGroup: Phaser.Physics.Arcade.Group;
+  fireRate: number;
+  magazineSize: number;
+  canShoot: boolean;
+
+  constructor(scene:Scene,x:number,y:number,player:Player){
     super(scene,x,y,'guns',0);
     this.player = player;
     this.bulletGroup = this.scene.physics.add.group();
@@ -15,7 +24,7 @@ export default class LaserGun extends Gun{
 
   shoot(){
     if(this.canShoot){
-      let _laserBullet = new LaserBullet(this);
+      let _laserBullet = new LaserBullet(this.scene,this.x,this.y,this);
       this.bulletGroup.add(_laserBullet);
       this.canShoot = false;
       this.setCooldown();
@@ -34,6 +43,8 @@ export default class LaserGun extends Gun{
     this.handlePositions(this.player);
 
     this.bulletGroup.children.each(bullet=>{
+          
+      //@ts-ignore
       bullet.fire();
     })
   }

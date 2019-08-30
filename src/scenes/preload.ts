@@ -30,7 +30,7 @@ export default class PreloadScene extends Scene{
   create(){
     // variables
 
-    const frameRate = 10;
+    const frameRate:number = 10;
 
     // player animations
     this.anims.create({

@@ -1,9 +1,18 @@
 import Player from "./Player";
 import PortalGun from "../Guns/Portal/Gun.PortalGun";
 import LaserGun from "../Guns/Laser/Gun.laser";
+import { Scene } from "phaser";
+import Gun from "../Guns/Gun";
 
 export default class Soldier extends Player{
-  constructor(scene,x,y){
+  
+  health: number;
+  guns: Phaser.GameObjects.Group;
+  activeGun: any;
+  weaponKeys: any;
+
+
+  constructor(scene:Scene,x:number,y:number){
     super(scene,x,y,'player-main',0);
     
     // data
@@ -29,7 +38,7 @@ export default class Soldier extends Player{
   }
 
   // TODO: will be added using a gui
-  setActiveGun(gun){
+  setActiveGun(gun:Gun){
     if(this.activeGun == null){
       this.activeGun = gun;
     }
@@ -40,7 +49,7 @@ export default class Soldier extends Player{
     }
   }
 
-  takeDamage(damage){
+  takeDamage(damage:number){
     this.health-= damage;
     if(this.health <= 0){
       this.anims.play('pmain-die');
@@ -50,10 +59,6 @@ export default class Soldier extends Player{
   update(){
     this.handleMovements();
     this.switchWeapon();
-    // update guns
-    // this.guns.children.each(gun=>{
-    //   gun.update();
-    // })
 
     if(this.activeGun != null){
       this.activeGun.update();

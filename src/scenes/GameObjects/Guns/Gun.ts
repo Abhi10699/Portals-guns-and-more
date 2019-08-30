@@ -3,6 +3,9 @@ import {GameObjects} from 'phaser';
 const {Sprite} = GameObjects;
 
 export default class Gun extends Sprite{
+  positionOffset: { x: number; y: number; };
+
+  
   constructor(scene,x,y,key,frame){
     super(scene,x,y,key,frame);
     this.scene.add.existing(this); 
