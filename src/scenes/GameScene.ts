@@ -2,6 +2,10 @@ import {Scene} from 'phaser';
 import Soldier from './GameObjects/Player/player.soldier';
 
 export default class GameScene extends Scene{
+  
+  player: Soldier;
+  map: Phaser.Tilemaps.Tilemap;
+  
   constructor(){
     super('game-scene');
   }

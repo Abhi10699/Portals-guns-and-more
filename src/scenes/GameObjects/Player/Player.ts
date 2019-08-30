@@ -1,9 +1,11 @@
-import {Physics} from 'phaser';
+import {Physics, Scene} from 'phaser';
 const {Sprite} = Physics.Arcade;
 
 export default class Player extends Sprite{
+  weaponKeys: object;
+  keys: object;
   
-  constructor(scene,x,y,key,frame){
+  constructor(scene:Scene,x:number,y:number,key:string,frame:number){
     super(scene,x,y,key,frame);
 
     // player configration
@@ -34,12 +36,14 @@ export default class Player extends Sprite{
   }
   // physics actions
   handleMovements(){
-    const speed = 250;
-    const jumpHeight = 300;
+    const speed:number = 250;
+    const jumpHeight:number = 300;
     // left
     
     if(!this.body.blocked.down == false){  
-    
+      
+      //@ts-ignore
+
       if(this.keys.A.isDown){
         this.setVelocityX(-speed);
         this.setFlipX(true);
@@ -48,6 +52,8 @@ export default class Player extends Sprite{
 
       // right
       
+      //@ts-ignore
+
       else if(this.keys.D.isDown){
         this.setVelocityX(speed);
         this.setFlipX(false);      
@@ -59,7 +65,8 @@ export default class Player extends Sprite{
       }
     }
     
-    // jump
+    //@ts-ignore
+
     if(this.keys.Space.isDown && this.body.blocked.down){ // check if player is on floor.
       this.setVelocityY(-jumpHeight);
     }

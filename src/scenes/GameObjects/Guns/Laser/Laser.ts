@@ -1,8 +1,16 @@
 import Bullet from "../Bullet";
+import LaserGun from "./Gun.laser";
+import { Scene } from "phaser";
 
 export default class LaserBullet extends Bullet{
-  constructor(gun){
-    super(gun.scene,gun.x,gun.y,'bullets',6);
+  
+  lifeTime: number;
+  speed: number;
+  isLeft: number;
+  gun:LaserGun
+
+  constructor(scene:Scene,x:number,y:number,gun:LaserGun){
+    super(scene,x,y,'bullets',6);
     this.lifeTime = 2000; // in seconds
     this.speed = 1400;
     
@@ -10,7 +18,7 @@ export default class LaserBullet extends Bullet{
     this.gun = gun;
     this.scene.time.delayedCall(this.lifeTime,()=>{
       this.killBullet();
-    },null)
+    },null,this)
 
     this.isLeft = gun.flipX ? -1 : 1;
   }

@@ -1,9 +1,11 @@
-import {Physics} from 'phaser';
+import {Physics, Scene} from 'phaser';
+import Gun from './Gun';
 
 const {Sprite} = Physics.Arcade;
 
 export default class Bullet extends Sprite{
-  constructor(scene,x,y,key,frame){
+
+  constructor(scene:Scene,x:number,y:number,key:string,frame:number){
     super(scene,x,y,key,frame);
     this.scene.physics.world.enableBody(this);
     this.scene.add.existing(this);
@@ -14,7 +16,7 @@ export default class Bullet extends Sprite{
   }
 
   
-  static bulletDirection(parent){
+  static bulletDirection(parent:Gun){
     if(parent.flipX == true){
       return true;
     }
