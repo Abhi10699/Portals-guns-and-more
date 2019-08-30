@@ -3,6 +3,13 @@ import Portal from './Portal';
 
 
 export default class PortalGun extends Gun{
+  
+  player: any;
+  cooldown: number;
+  portalGroup: Phaser.Physics.Arcade.Group;
+  PortalDistance: number;
+  canShoot: boolean;
+
   constructor(playerScene,x,y,player){
     super(playerScene,x,y,'guns',6);
     this.player = player;
@@ -10,7 +17,6 @@ export default class PortalGun extends Gun{
 
     this.portalGroup = this.scene.physics.add.group();
     this.PortalDistance = 100;
-
     this.canShoot = true;
   }
 
