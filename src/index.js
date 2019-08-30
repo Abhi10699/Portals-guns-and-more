@@ -13,7 +13,7 @@ const config = {
     default:'arcade',
     fps:60,
     arcade:{
-      debug:true,
+      debug:false,
     }
   },
   scene:[PreloadScene,GameScene]
