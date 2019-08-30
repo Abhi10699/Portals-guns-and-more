@@ -26,6 +26,7 @@ export default class PreloadScene extends Scene{
 
     // bullets
     this.load.spritesheet('bullets','./assets/Laser.png',{frameWidth:16,frameHeight:16})
+
   }
   create(){
     // variables
