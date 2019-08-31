@@ -59,6 +59,9 @@ export default class Soldier extends Player{
   update(){
     this.handleMovements();
     this.switchWeapon();
+    
+    super.handlePowerups();
+    super.powerupUpdate()
 
     if(this.activeGun != null){
       this.activeGun.update();
