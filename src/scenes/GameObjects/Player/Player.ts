@@ -1,10 +1,22 @@
 import {Physics, Scene} from 'phaser';
+import Shield from '../Powerups/poweup.shield';
 const {Sprite} = Physics.Arcade;
 
 export default class Player extends Sprite{
   weaponKeys: object;
   keys: object;
+  health:number;
+  powerups:Phaser.GameObjects.Group;
+  powerupKeys:Object
   
+  // shield
+  shield:Shield;
+  shieldCooldown:number;
+  shieldDuration:number;
+  shieldDamageReduction:number;
+  shieldActive:boolean = false;
+
+
   constructor(scene:Scene,x:number,y:number,key:string,frame:number){
     super(scene,x,y,key,frame);
 
@@ -17,6 +29,10 @@ export default class Player extends Sprite{
     this.setScale(2.3);
     this.setFlipX(true);
 
+
+    // powerup groups
+    this.powerups = this.scene.add.group();
+    // activepowerups
   }
 
   InputConfig() {
@@ -31,7 +47,11 @@ export default class Player extends Sprite{
 
     this.weaponKeys = this.scene.input.keyboard.addKeys({
       'Q':Phaser.Input.Keyboard.KeyCodes.Q,
-      'E':Phaser.Input.Keyboard.KeyCodes.E,
+      'E':Phaser.Input.Keyboard.KeyCodes.E
+    })
+
+    this.powerupKeys = this.scene.input.keyboard.addKeys({
+      'Z':Phaser.Input.Keyboard.KeyCodes.Z
     })
   }
   // physics actions
@@ -69,6 +89,34 @@ export default class Player extends Sprite{
 
     if(this.keys.Space.isDown && this.body.blocked.down){ // check if player is on floor.
       this.setVelocityY(-jumpHeight);
+    }
+  }
+
+  handlePowerups(){
+    //@ts-ignore
+    // shield
+    if(this.powerupKeys.Z.isDown && this.shieldActive == false){
+      this.shieldActive = true;
+      let shieldTemp = new Shield(this);
+      this.powerups.add(shieldTemp);
+    }
+  }
+
+  powerupUpdate(){
+    this.powerups.children.each(powerup=>{
+      powerup.update();
+    })
+  }
+
+  //TODO: calculate damage based on shield active..
+
+  takeDamage(damage:number){
+    if(this.shieldActive){
+      // deal 50% less damage;
+      this.health = this.health - (damage/2);
+    }
+    else{
+      this.health = this.health - (damage/2);
     }
   }
 }
