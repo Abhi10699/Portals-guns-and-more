@@ -25,7 +25,12 @@ export default class PreloadScene extends Scene{
     this.load.spritesheet('guns','./assets/weapons_set.png',{frameHeight:16,frameWidth:25});
 
     // bullets
-    this.load.spritesheet('bullets','./assets/Laser.png',{frameWidth:16,frameHeight:16})
+    this.load.spritesheet('bullets','./assets/Laser.png',{frameWidth:16,frameHeight:16});
+
+
+    // powerups
+
+    this.load.spritesheet('Shield','./assets/ShieldActive.png',{frameWidth:64,frameHeight:64});
 
   }
   create(){
