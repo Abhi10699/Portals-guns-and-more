@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "target": "es5"
+    },
+    "include": [
+      "src/*"
+    ],
+    "typeRoots": [
+        "./node_modules/phaser/types"
+    ],
+    "types": [
+        "Phaser"
+    ],
+    "files": [
+        "./phaser.d.ts"
+    ]
+  }

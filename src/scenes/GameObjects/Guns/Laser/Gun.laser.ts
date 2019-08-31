@@ -20,11 +20,13 @@ export default class LaserGun extends Gun{
     this.magazineSize = 30;
 
     this.canShoot = true;
+
   }
 
   shoot(){
     if(this.canShoot){
-      let _laserBullet = new LaserBullet(this.scene,this.x,this.y,this);
+      // @ts-ignore
+      let _laserBullet = new LaserBullet(this.scene,this.x,this.y,this); // @ts-ignore
       this.bulletGroup.add(_laserBullet);
       this.canShoot = false;
       this.setCooldown();
@@ -39,8 +41,8 @@ export default class LaserGun extends Gun{
   }
 
   update(){
-    this.handleActions();
-    this.handlePositions(this.player);
+    super.handleActions();
+    super.handlePositions(this.player);
 
     this.bulletGroup.children.each(bullet=>{
           
